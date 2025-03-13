@@ -13,12 +13,28 @@ async function handleGenerateNewShortUrl(req,res){
     await URL.create({
         shortId: shortID,
         redirectUrl: body.url,
-        visitedHistory: []
+        visitHistory: []
     });
 
     return res.json({id : shortID})
 }
 
+async function handleShortUrl(req,res){
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate(
+    {
+        shortId,
+    }, 
+    { 
+        $push: {
+            visitHistory: {timestamp:Date.now()},
+        },
+    }
+    )
+    res.redirect(entry.redirectUrl)
+}
+
 module.exports = {
-    handleGenerateNewShortUrl
+    handleGenerateNewShortUrl,
+    handleShortUrl
 }
