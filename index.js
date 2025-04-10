@@ -26,10 +26,10 @@ app.get('/test', async (req,res) => {
     }) 
 })
 
-app.use("/url", urlRoute)
 app.use('/', staticRoute)
+app.use("/url", urlRoute)
 
-app.get('/:shortId', handleShortUrl)
+// app.get('/:shortId', handleShortUrl)
 
 app.listen(PORT, () => {
     console.log(`Server Started at PORT ${PORT}`)
