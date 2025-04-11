@@ -13,7 +13,8 @@ async function handleGenerateNewShortUrl(req,res){
     await URL.create({
         shortId: shortID,
         redirectUrl: body.url,
-        visitHistory: []
+        visitHistory: [],
+        createdBy: req.user._id //got the req.user in middleware auth 
     });
 
     return res.render("home", {  // because of the .set configuration in index.js we can directly say "home" here
